@@ -28,9 +28,9 @@ package
         [Embed (source = "../res/ui.png")] private var Ui:Class;
         private var spr_ui:Bitmap = new Ui();
         
-        //[Embed(source="../res/Music/Antti_Martikainen_-_Treasure_Cove.mp3")] private var BgMusic:Class;
-        //public var snd_bg:Sound = new BgMusic();
-        //public var snd_bg_channel:SoundChannel;
+        [Embed(source="../res/music/Fiddles McGinty.mp3")] private var BgMusic:Class;
+        public var snd_bg:Sound = new BgMusic();
+        public var snd_bg_channel:SoundChannel;
         
         public function Main() 
         {
@@ -61,7 +61,7 @@ package
             
             //Entry point
             stage.scaleMode = StageScaleMode.NO_SCALE;
-            //snd_bg_channel = snd_bg.play();
+            snd_bg_channel = snd_bg.play();
             
             //Set up the scene
             

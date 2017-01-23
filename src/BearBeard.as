@@ -300,7 +300,7 @@ package
             if (!won && !bouncing && ship.x <= -6270 && ship.x >= -6321)
             {
                 //We won !!
-                //main.snd_bg_channel.stop();
+                main.snd_bg_channel.stop();
                 for (var i:int = 0 ; i < ship.enemies.length ; i++ )
                     ship.enemies[i].die(true);
                 won = true;
