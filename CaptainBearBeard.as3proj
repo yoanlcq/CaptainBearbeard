@@ -5,7 +5,7 @@
     <movie outputType="Application" />
     <movie input="" />
     <movie path="bin\CaptainBearBeard.swf" />
-    <movie fps="30" />
+    <movie fps="60" />
     <movie width="600" />
     <movie height="400" />
     <movie version="14" />

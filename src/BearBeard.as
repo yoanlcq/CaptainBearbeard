@@ -26,17 +26,17 @@ package
         public var falling_faster:Boolean = false;
         public var min_jump_charge:uint = 13;
         public var max_jump_charge:uint = 26;
-        public var jump_charge:uint = min_jump_charge;
-        public var xvel:int = 0;
-        public var yvel:int = 0;
-        public var xaccel:int = 2;
-        public var yaccel:int = 2;
-        public var max_xvel:uint = 12;
+        public var jump_charge:Number = min_jump_charge;
+        public var xvel:Number = 0;
+        public var yvel:Number = 0;
+        public var xaccel:Number = 1.5; //
+        public var yaccel:int = 1; //
+        public var max_xvel:uint = 6*1.5; //
         public var bonus_xvel:int = 0;
-        public var xresistance_airborne:int = 1;
+        public var xresistance_airborne:Number = .2;
         public var xresistance_ground:int = 4;
-        public var gravity:int = 1;
-        public var yvel_loss_when_landing:int = 4*gravity;
+        public var gravity:Number = .5; //
+        public var yvel_loss_when_landing:int = 6*gravity; //
         public var blu_hitbox:Rectangle  = new Rectangle(0, 0, 40, -70);
         public var red_hitbox:Rectangle  = new Rectangle(0, 0, 40, -40);
         public var mine_hitbox:Rectangle = new Rectangle(0, 0, 40, -70);
@@ -46,8 +46,8 @@ package
         public var max_life:int = 6;
         public var life:int = max_life;
         public var dead_time:int = 0;
-        public var max_dead_time:int = 42;
-        public var max_invulnerability_time:int = 42;
+        public var max_dead_time:int = 2*42;
+        public var max_invulnerability_time:int = 2*42;
         public var invulnerability_time:int = max_invulnerability_time;
         
         public var gameover:Boolean = false;
@@ -241,11 +241,11 @@ package
         
         public function chargeJump():void 
         {
-            if (!won && !bouncing && frameno%2==0)
+            if (!won && !bouncing)
             {
                 
                 if (jump_charge < max_jump_charge)
-                    jump_charge++;
+                    jump_charge+=0.25;
                 else
                     jump();
                     
@@ -259,7 +259,7 @@ package
             {
                 //Let's go into space !
                 snd_jump.play();
-                yvel = -jump_charge;
+                yvel = -jump_charge/1.4;
                 bouncing = true;
                 jump_charge = min_jump_charge;
                 uppin = true;
@@ -300,7 +300,7 @@ package
             if (!won && !bouncing && ship.x <= -6270 && ship.x >= -6321)
             {
                 //We won !!
-                main.snd_bg_channel.stop();
+                //main.snd_bg_channel.stop();
                 for (var i:int = 0 ; i < ship.enemies.length ; i++ )
                     ship.enemies[i].die(true);
                 won = true;
@@ -330,7 +330,7 @@ package
                     //We're on the ground.
                     if (!bouncing) 
                     {
-                        if (Math.abs(xvel) == max_xvel && animtime%1==0)
+                        if (Math.abs(xvel) == max_xvel && animtime%2==0)
                         {
                             switch (this.current_sprite) 
                             {
@@ -377,8 +377,8 @@ package
                     yvel += 4;
                 
                 //Move it !
-                
                 this.ship.x -= xvel;
+				this.ship.x = Math.round(this.ship.x);
                 this.y += yvel;
                 
                 if (this.ship.x > 0)
@@ -392,9 +392,11 @@ package
                 */
                 
                 //Apply horizontal air resistance
-                if (frameno % 2 == 0)
+                if (frameno % 4 == 0)
                 {
-                    xvel += (xvel > 0 ? -xresistance_airborne : (xvel < 0 ? xresistance_airborne : 0));
+					//60fps edit : removed because
+					if(Math.abs(xvel)-0.01 > 0)
+						xvel += (xvel > 0 ? -xresistance_airborne : (xvel < 0 ? xresistance_airborne : 0));
                     //If on the ground, then slow down quickly.
                     if (!bouncing)
                         xvel /= 2;

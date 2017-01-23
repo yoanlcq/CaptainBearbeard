@@ -13,13 +13,13 @@ package
 	public class Enemy extends Sprite
 	{
 		public var frameno:uint = 0;
-		public var xvel:int = 0;
-		public var yvel:int = 0;
-		public var xaccel:int = 2;
-		public var yaccel:int = 2;
-		public var max_xvel:uint = 12;
+		public var xvel:Number = 0;
+		public var yvel:Number = 0;
+		public var xaccel:Number = 0.5;
+		public var yaccel:Number = 0.5;
+		public var max_xvel:uint = 3;
 		public var xresistance_airborne:int = 1;
-		public var xresistance_ground:int = 4;
+		public var xresistance_ground:int = 4*2;
 		public var gravity:int = 1;
 		public var yvel_loss_when_landing:int = 4*gravity;
 		public var blu_hitbox:Rectangle;
@@ -27,7 +27,7 @@ package
 		public var axis:Point;
 		
 		public var life:int = 1;
-		public var max_invulnerability_time:int = 20;
+		public var max_invulnerability_time:int = 40;
 		public var invulnerability_time:int = max_invulnerability_time;
 		
 		public var facing_right:Boolean = false;
@@ -219,7 +219,7 @@ package
 				switch(type)
 				{
 					case TYPE_PIRATE_ROUGE:
-						if (frameno % 3 == 0) {
+						if (frameno % 6 == 0) {
 							switch(current_sprite) {
 								default: drawSprite(spr_Pirate_rouge0); break;
 								case spr_Pirate_rouge0: drawSprite(spr_Pirate_rouge1);  break;
@@ -230,31 +230,31 @@ package
 						}
 					
 						if (this.x+parent.x < 200) {
-								this.xvel++;
+								this.xvel += 0.5;
 								turnLeft();
 							}
 						else if(this.x+parent.x <550) {
-								this.xvel--;
+								this.xvel -= 0.5;
 								turnRight();
 							}
 						
 						
-						if (this.xvel > 8)
-							this.xvel = 8;
-						else if (this.xvel< -8)
-							this.xvel = -8;
+						if (this.xvel > 4)
+							this.xvel = 4;
+						else if (this.xvel< -4)
+							this.xvel = -4;
 						
 							
-						if (frameno % 2 == 0)
+						if (frameno % 4 == 0)
 						{
 							if (this.y >= 0)
-								this.yvel -= 4;
+								this.yvel -= 2;
 							else this.yvel++;
 						}
 						break;
 					case TYPE_COUTEAU:
 						yvel++;
-						if (frameno % 2 == 0) {
+						if (frameno % 4 == 0) {
 							switch(current_sprite) {
 								default: drawSprite(spr_couteau0); break;
 								case spr_couteau0: drawSprite(spr_couteau1);  break;
@@ -265,17 +265,17 @@ package
 						}
 						if(frameno==1) {
 							if (parent.x+parent.parent.x < 200) {
-									this.xvel = 20;
+									this.xvel = 10;
 									turnLeft();
 								}
 							else {
-									this.xvel = -20;
+									this.xvel = -10;
 									turnRight();
 								}
 						}
 						break;
 					case TYPE_PIRATE_BLEU:
-						if (frameno % 3 == 0) {
+						if (frameno % 6 == 0) {
 							switch(current_sprite) {
 								default: drawSprite(spr_Pirate_bleu0); break;
 								case spr_Pirate_bleu0: drawSprite(spr_Pirate_bleu1);  break;
@@ -287,30 +287,30 @@ package
 						}
 					
 						if (this.x+parent.x < 200) {
-								this.xvel++;
+								this.xvel+=0.5;
 								turnLeft();
 							}
 						else if(this.x+parent.x <550) {
-								this.xvel--;
+								this.xvel-=0.5;
 								turnRight();
 							}
 						
 						
-						if (this.xvel > 14)
-							this.xvel = 14;
-						else if (this.xvel< -14)
-							this.xvel = -14;
+						if (this.xvel > 7)
+							this.xvel = 7;
+						else if (this.xvel< -7)
+							this.xvel = -7;
 						
 							
-						if (frameno % 2 == 0)
+						if (frameno % 4 == 0)
 						{
 							if (this.y >= 0)
-								this.yvel -= 8;
+								this.yvel -= 4;
 							else this.yvel++;
 						}
 						break;
 					case TYPE_CUISINIER:
-						if (frameno % 7 == 0) {
+						if (frameno % 14 == 0) {
 							/*
 							for (var i:int = 0 ; i < this.numChildren ; i++ )
 								if (this.getChildAt(i).y > 100)
@@ -333,33 +333,33 @@ package
 							}
 						break;
 					case TYPE_PERROQUET:
-						if(frameno % 3 == 0) {
+						if(frameno % 6 == 0) {
 							if (current_sprite == spr_perroquet0)
 								this.drawSprite(spr_perroquet1);
 							else this.drawSprite(spr_perroquet0);
 						}
 						
 						if (this.x+parent.x < 200) {
-							this.xvel++;
+							this.xvel+=0.5;
 							turnLeft();
 						}
 						else if(this.x+parent.x <550) {
-							this.xvel--;
+							this.xvel-=0.5;
 							turnRight();
 						}
 						
 						
-						if (this.xvel > 20)
-							this.xvel = 20;
-						else if (this.xvel< -20)
-							this.xvel = -20;
+						if (this.xvel > 10)
+							this.xvel = 10;
+						else if (this.xvel< -10)
+							this.xvel = -10;
 						
 							
-						if (frameno % 2 == 0)
+						if (frameno % 4 == 0)
 						{
 							if (this.y > -100)
-								this.yvel--;
-							else this.yvel++;
+								this.yvel-=0.5;
+							else this.yvel+=0.5;
 						}
 						
 						break;
@@ -368,7 +368,7 @@ package
 			
 			if(life <= 0) {
 				if (this.y < 0)
-					yvel++;
+					yvel+=0.5;
 				else {
 					yvel = 0;
 					switch(type)

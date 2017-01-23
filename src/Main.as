@@ -145,6 +145,7 @@ package
                 {
                     bear.chargeJump();
                 } else bear.jump();
+				
                 if (holding_down)
                 {
                     bear.fallFaster();
