@@ -1,8 +1,8 @@
 # CaptainBearbeard
-Sources for Captain Bearbeard, now on GitHub.  
+Sources for Captain Bearbeard, now on GitHub. [You can play the game here](http://yoanlecoq.com/dl/CaptainBearBeard/).  
 The IDE was FlashDevelop on Windows.  
 The scene's FPS setting used to be 30 - I ported it to 60FPS recently.
-  
+
 Most of the sounds were taken from [freesound.org](freesound.org).  
 
 BG Music credits :
